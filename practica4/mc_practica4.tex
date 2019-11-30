@@ -289,7 +289,28 @@ Por lo tanto, podemos asegurar que el lenguaje no es regular ya que no cumple el
  $L_2 = \{ ww $ tal que  $ w \in \{0,1\}^* \}$.
  
 Primero, para cualquier n tenemos que escoger una palabra z que pertenezca al lenguaje. Yo escogeré la siguiente palabra: $z = 0^n10^n1$. Como vemos, esta palabra esta dentro del lenguaje, ya que $0^n1$ se repite dos veces.
- 
+
+Por el lema de bombeo, podemos descomponer z en:
+
+\begin{enumerate}
+	\item $u = 0^k$
+	\item $v = 0^l$
+	\item $w =0^{n - l - k}10^n1$
+\end{enumerate}
+
+Por lo tanto, $\exists i$ tal que $uv^iw \not \in L$
+
+Vemos como:
+	$$uv^iw = 0^k0^{li}0^{n-l-k}10^n1$$ 
+	$$ =  0^{n - l - k + k + li}10^n1 $$
+	$$ =  0^{n - l  + li}10^n1$$
+	$$ =  0^{n + l(i - 1)}10^n1  $$
+
+Por lo que si escogemos $i = 2$, como $|v| \geq 1$ entonces $l \geq 1$, luego $n+l \geq n$, por lo que en la primera parte tenemos más ceros que la segunda parte, haciendo que $uv^iw \not \in L_1$.
+
+Por lo tanto, podemos asegurar que el lenguaje no es regular ya que no cumple el lema de bombeo.
+
+
  \subsection{}
  $L_3 = \{ a^{2^n} \in \{a\}^{*} $ tal que  $ n >= 0 \}$.
 
