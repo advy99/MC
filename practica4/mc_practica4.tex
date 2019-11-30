@@ -270,7 +270,7 @@ Por el lema de bombeo, podemos descomponer z en:
 	\item $w = (aa)^{n - l - k}b^{n+1}$
 \end{enumerate}
 
-Por lo tanto, $\exists i$ tal que $uv^iw \not \in L$
+Por lo tanto, $\exists i$ tal que $uv^iw \not \in L_1$
 
 \newpage
 
@@ -298,7 +298,7 @@ Por el lema de bombeo, podemos descomponer z en:
 	\item $w =0^{n - l - k}10^n1$
 \end{enumerate}
 
-Por lo tanto, $\exists i$ tal que $uv^iw \not \in L$
+Por lo tanto, $\exists i$ tal que $uv^iw \not \in L_2$
 
 Vemos como:
 	$$uv^iw = 0^k0^{li}0^{n-l-k}10^n1$$ 
@@ -306,7 +306,7 @@ Vemos como:
 	$$ =  0^{n - l  + li}10^n1$$
 	$$ =  0^{n + l(i - 1)}10^n1  $$
 
-Por lo que si escogemos $i = 2$, como $|v| \geq 1$ entonces $l \geq 1$, luego $n+l \geq n$, por lo que en la primera parte tenemos más ceros que la segunda parte, haciendo que $uv^iw \not \in L_1$.
+Por lo que si escogemos $i = 2$, como $|v| \geq 1$ entonces $l \geq 1$, luego $n+l \geq n$, por lo que en la primera parte tenemos más ceros que la segunda parte, haciendo que $uv^iw \not \in L_2$.
 
 Por lo tanto, podemos asegurar que el lenguaje no es regular ya que no cumple el lema de bombeo.
 
@@ -314,6 +314,28 @@ Por lo tanto, podemos asegurar que el lenguaje no es regular ya que no cumple el
  \subsection{}
  $L_3 = \{ a^{2^n} \in \{a\}^{*} $ tal que  $ n >= 0 \}$.
 
+Primero, para cualquier n tenemos que escoger una palabra z que pertenezca al lenguaje. Yo escogeré la siguiente palabra: $z = a^{2^n}$. Como vemos trivialmente, esta palabra esta dentro del lenguaje.
+
+Por el lema de bombeo, podemos descomponer z en:
+
+\begin{enumerate}
+	\item $u = a^k$
+	\item $v = a^l$
+	\item $w =a^{n^2 - l - k}/$
+\end{enumerate}
+
+Por lo tanto, $\exists i$ tal que $uv^iw \not \in L_3$
+
+Vemos como:
+	$$uv^iw = a^ka^{li}a^{2^n - l - k}$$ 
+	$$ =  a^{2^n - l - k + k + li}$$
+	$$ =  a^{2^n - l  + li}$$
+	$$ =  a^{2^n + l(i - 1)} $$
+	
+
+Por lo que si escogemos $i = 2$, como $|uv| \leq n$ y $|v| \geq 1$ entonces $l \geq 1$, por lo tanto, $2^n < 2^n+l < 2^{n+1}$, como resultado, el número de $a$ no sería un cuadrado de 2, haciendo que $uv^iw \not \in L_2$.
+
+Por lo tanto, podemos asegurar que el lenguaje no es regular ya que no cumple el lema de bombeo.
 
 \end{document}
 
