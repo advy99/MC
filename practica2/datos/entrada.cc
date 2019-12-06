@@ -16,11 +16,13 @@ int main(int argc, char ** argv){
 	cout << "hola mundo " << endl;
 
 	/*esto es otro
-	  comentario en bloque
+	  comentario en/* bloque
 	  grande
 	 */
 
 	return DEVOLVER; // acabamos la funcion
+
+	/* y un ultimo comentario en bloque*/
 
 
 }

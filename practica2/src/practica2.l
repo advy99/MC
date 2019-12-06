@@ -33,7 +33,7 @@ vector<pair<string, int> > comentarios_bloque;
 
 "/*".*"*/"	{string comentario(YYText()); comentarios_bloque.push_back(make_pair(comentario, lineno()));}
 
-"/*"[^"*/"]*"*/"	{string comentario(YYText()); comentarios_bloque.push_back(make_pair(comentario, lineno()));}
+("/*")+[^"*/"]*("/*")*[^"*/"]*"*/"	{string comentario(YYText()); comentarios_bloque.push_back(make_pair(comentario, lineno()));}
 
 
 . {}
