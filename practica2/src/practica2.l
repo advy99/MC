@@ -12,6 +12,10 @@ ifstream fichero;
 
 int ordenes_preprocesador;
 int num_defines;
+
+int parentesis_abren;
+int parentesis_cierran;
+
 vector<pair<string, int> > includes;
 vector<pair<string, int> > comentarios_linea;
 
@@ -19,6 +23,8 @@ vector<pair<string, int> > comentarios_bloque;
 
 %}
 
+
+linea	.*\n?
 
 %%
 
@@ -35,6 +41,8 @@ vector<pair<string, int> > comentarios_bloque;
 
 ("/*")+[^"*/"]*("/*")*[^"*/"]*"*/"	{string comentario(YYText()); comentarios_bloque.push_back(make_pair(comentario, lineno()));}
 
+"(" {parentesis_abren++;}
+")" {parentesis_cierran++;}
 
 . {}
 \n {}
@@ -68,8 +76,16 @@ int main(int argc, char ** argv){
 	cout << "Numero de ordenes del preprocesador: " << ordenes_preprocesador << endl
 		  << "Numero de defines: " << num_defines << endl
 		  << "Numero de includes: " << includes.size() << endl
+		  << "Numero de parentesis a la izquierda: " << parentesis_abren << endl
+		  << "Numero de parentesis a la derecha: " << parentesis_cierran << endl
 		  << "Numero de comentarios de linea:" << comentarios_linea.size() << endl
 		  << "Numero de comentarios en bloque: " << comentarios_bloque.size() << endl;
+
+	cout << endl << endl;
+
+	if (parentesis_abren != parentesis_cierran){
+		cout << "AVISO: El numero de parentesis que abren y el que cierran no coinciden" << endl;
+	}
 
 	cout << endl << endl;
 
