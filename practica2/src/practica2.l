@@ -28,8 +28,8 @@ vector<pair<string, int> > comentarios_bloque;
 ^"#include "[<"][a-zA-Z.a-zA-Z]*[>"] {ordenes_preprocesador++; string frase(YYText()); includes.push_back(make_pair( frase.substr(9, frase.size()-1), lineno() )  );}
 ^"#define" {num_defines++; ordenes_preprocesador++;}
 
-"//".*	{string comentario(YYText()); comentarios_linea.push_back(make_pair(comentario, lineno()));}
 
+"//".*	{string comentario(YYText()); comentarios_linea.push_back(make_pair(comentario, lineno()));}
 
 "/*".*"*/"	{string comentario(YYText()); comentarios_bloque.push_back(make_pair(comentario, lineno()));}
 

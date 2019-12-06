@@ -22,7 +22,8 @@ int main(int argc, char ** argv){
 
 	return DEVOLVER; // acabamos la funcion
 
-	/* y un ultimo comentario en bloque*/
+	/* y un ultimo comentario
+	 en bloque*/
 
 
 }
