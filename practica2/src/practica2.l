@@ -13,8 +13,9 @@ ifstream fichero;
 int ordenes_preprocesador;
 int num_defines;
 
-int parentesis_abren;
-int parentesis_cierran;
+pair<int, int> parentesis = make_pair(0,0);
+
+pair<int, int> llaves = make_pair(0, 0);
 
 vector<pair<string, int> > includes;
 vector<pair<string, int> > comentarios_linea;
@@ -37,9 +38,10 @@ vector<pair<string, int> > comentarios_bloque;
 
 ("/*")+[^"*/"]*("/*")*[^"*/"]*"*/"	{string comentario(YYText()); comentarios_bloque.push_back(make_pair(comentario, lineno()));}
 
-"(" {parentesis_abren++;}
-")" {parentesis_cierran++;}
-
+"(" {parentesis.first++;}
+")" {parentesis.second++;}
+"{" {llaves.first++;}
+"}" {llaves.second++;}
 
 
 . {}
@@ -73,16 +75,22 @@ int main(int argc, char ** argv){
 
 	cout << "Numero de ordenes del preprocesador: " << ordenes_preprocesador << endl
 		  << "Numero de defines: " << num_defines << endl
-		  << "Numero de includes: " << includes.size() << endl
-		  << "Numero de parentesis a la izquierda: " << parentesis_abren << endl
-		  << "Numero de parentesis a la derecha: " << parentesis_cierran << endl
+		  << "Numero de includes: " << includes.size() << endl << endl
+		  << "Numero de parentesis a la izquierda: " << parentesis.first << endl
+		  << "Numero de parentesis a la derecha: " << parentesis.second << endl << endl
+		  << "Numero de llaves a la izquierda: " << llaves.first << endl
+		  << "Numero de llaves a la derecha: " << llaves.second << endl << endl
 		  << "Numero de comentarios de linea:" << comentarios_linea.size() << endl
 		  << "Numero de comentarios en bloque: " << comentarios_bloque.size() << endl;
 
 	cout << endl << endl;
 
-	if (parentesis_abren != parentesis_cierran){
+	if (parentesis.first != parentesis.second){
 		cout << "AVISO: El numero de parentesis que abren y el que cierran no coinciden" << endl;
+	}
+
+	if (llaves.first != llaves.second){
+		cout << "AVISO: El numero de llaves que abren y el que cierran no coinciden" << endl;
 	}
 
 	cout << endl << endl;

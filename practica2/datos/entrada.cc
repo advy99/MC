@@ -10,7 +10,7 @@ using namespace std;
 
 /**/
 
-int main(int argc, char ** argv){
+int main(int argc, char ** argv)){
 
 	// imprimimos hola mundo
 	cout << "hola mundo " << endl;
@@ -20,9 +20,6 @@ int main(int argc, char ** argv){
 	  grande
 	 */
 
-	 (2
-
-	 ))
 
 	return DEVOLVER; // acabamos la funcion
 
