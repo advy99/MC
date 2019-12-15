@@ -24,11 +24,7 @@ vector<pair<string, int> > comentarios_bloque;
 %}
 
 
-linea	.*\n?
-
 %%
-
-
 
 ^"#" {ordenes_preprocesador++;}
 ^"#include "[<"][a-zA-Z.a-zA-Z]*[>"] {ordenes_preprocesador++; string frase(YYText()); includes.push_back(make_pair( frase.substr(9, frase.size()-1), lineno() )  );}
@@ -43,6 +39,8 @@ linea	.*\n?
 
 "(" {parentesis_abren++;}
 ")" {parentesis_cierran++;}
+
+
 
 . {}
 \n {}
