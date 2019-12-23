@@ -3,14 +3,13 @@
 #include "archivo.h"
 
 #define DEVOLVER 0
-
 using namespace std;
 
 /* esto es un comentario en bloque*/
 
 /**/
 
-int main(int argc, char ** argv)){
+int main(int argc, char ** argv){
 
 	// imprimimos hola mundo
 	cout << "hola mundo " << endl;
@@ -20,11 +19,13 @@ int main(int argc, char ** argv)){
 	  grande
 	 */
 
+	 (}
+
+	 (){}
 
 	return DEVOLVER; // acabamos la funcion
 
 	/* y un ultimo comentario
 	 en bloque*/
-
 
 }
