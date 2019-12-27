@@ -1,0 +1,278 @@
+\documentclass[12pt, spanish]{article}
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+
+
+\usepackage{tikz}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+
+
+\usepackage{hyperref}
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\usepackage[default]{sourcesanspro}
+
+\setmarginsrb{2 cm}{1 cm}{2 cm}{2 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{Modelos de Computación:\\
+Práctica 5. \hspace{0.05cm} }                           
+\author{Antonio David Villegas Yeguas}                             
+\date{\today}                                           
+
+\renewcommand*\contentsname{hola}
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+    \centering
+    \vspace*{0.5 cm}
+    \includegraphics[scale = 0.50]{ugr.png}\\[1.0 cm]
+    %\textsc{\LARGE Universidad de Granada}\\[2.0 cm]   
+    \textsc{\large 3ºA - A2}\\[0.5 cm]            
+    \textsc{\large Grado en Ingeniería Informática}\\[0.5 cm]              
+    \rule{\linewidth}{0.2 mm} \\[0.2 cm]
+    { \huge \bfseries \thetitle}\\
+    \rule{\linewidth}{0.2 mm} \\[1 cm]
+    
+    \begin{minipage}{0.4\textwidth}
+        \begin{flushleft} \large
+            \emph{Autor:}\\
+            \theauthor
+            \end{flushleft}
+            \end{minipage}~
+            \begin{minipage}{0.4\textwidth}
+            \begin{flushright} \large
+            \emph{Asignatura: \\
+            Modelos de Computación}                   
+        \end{flushright}
+    \end{minipage}\\[0.5cm]
+  
+    {\large \thedate}\\[0.5cm]
+    {\url{https://github.com/advy99/MC/}}
+    {\doclicenseThis}
+ 	
+    \vfill
+    
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\tableofcontents
+%\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Ejercicio 1:} Determinar cuáles de la siguientes gramáticas son ambiguas:
+
+\textbf{A)}: 
+
+$$ S \rightarrow AbB, A \rightarrow aA | \epsilon, B \rightarrow aB | bB | \epsilon  $$
+
+Este lenguaje no es ambiguo, ya que en S tenemos un separador entre A y B, y desde A no podemos hacer producciones de B y viceversa, haciendo A y B totalmente independientes y diferenciadas por el carácter separador b.
+
+Esta gramática genera el lenguaje dado por la siguiente expresión regular: a*b(a+b)*, la producción A genera a*, b esta como separador en S y la producción B genera (a+b)*. Con esto sabemos que la primera parte solo existe una forma de generarla, A, y la segunda parte esta compuesta de una única regla, que al ser regular (esa regla, la gramática no lo es) solo existe una única forma de generación de esa parte, luego la gramática no es ambigua.
+
+\textbf{B)}: 
+
+$$ S \rightarrow abaS | babS | baS | \epsilon $$
+
+
+Vemos como esta gramática es ambigua, ya que la palabra \texttt{bababa} tenemos dos formas de generala:
+
+$$ S $$
+$$ babS $$ 
+$$ bababa $$
+
+O bien:
+
+$$ S $$
+$$ baS $$ 
+$$ babaS $$
+$$ bababa $$
+
+\newpage
+
+\section{Ejercicio 2:} Encontrar un autómata con pila que acepte el lenguaje:
+
+$$ L = \{0^i1^j2^k3^m4 \text{ tal que } i, j, k \geq 0, m = i+j+k\}  $$
+
+
+\begin{center}
+\includegraphics[scale=0.55]{pila_1.png}
+\end{center}
+
+Este autómata acepta cadenas por el criterio de pila vacía.
+
+Primero leemos una ristra de 0's, si en el tope de la pila esta el símbolo inicial Z, sacamos esta Z e introducimos en la pila una Z y una A, si el tope de la pila era una A sacamos dicha A e introducimos dos A.
+
+Tras leer los 0's leemos una ristra de 1's, si en el tope de la pila esta el símbolo inicial Z, sacamos esta Z e introducimos en la pila una Z y una B, si el tope de la pila era una B sacamos dicha B e introducimos dos BB y si el tope de la pila es una A (hemos leído como mínimo un 0) sacamos esa A e introducimos BA.
+
+Tras leer los 1's leemos una ristra de 2's, si en el tope de la pila esta el símbolo inicial Z, sacamos esta Z e introducimos en la pila una Z y una C, si el tope de la pila era una C sacamos dicha C e introducimos dos C, si el tope de la pila es una A (hemos leído como mínimo un 0 y ningún 1) sacamos esa A e introducimos CA y por último, si el tope de la pila es una B (hemos leído como mínimo un 1) sacamos esa B e introducimos CB.
+
+Como vemos, cada vez que leemos algún 0, 1 o 2 metemos una A, B o C en la pila.
+
+Tras leer los 0's, 1's y 2's pasamos a leer los 3's, que como tienen que ser el número de 0's, 1's y 2's, y hemos contado ese número almacenando A's, B's y C's en la pila, simplemente cuando leemos un 3, sacamos de la pila una A, B o C sin introducir nada.
+
+Cuando leemos un 4, tenemos en la pila el símbolo inicial Z, luego vaciamos la pila sacando este símbolo, aceptando cadenas por el criterio de pila vacía. En caso de que leamos un 4 y en la pila todavía tengamos un símbolo distinto a Z quiere decir que la suma del número de 0's, 1's y 2's no coincide con el número de 3's.
+
+
+\newpage
+
+\section{Ejercicio 3:} Encontrar un autómata con pila que acepte el lenguaje:
+
+$$ L = \{1^nw \in \{0,1\}^* \text{ tal que } |w|=n, n > 0 \}  $$
+
+A partir de su autómata, calcular una gramática libre de contexto que lo genere. Eliminar las producciones inútiles de dicha gramática. Pasar la gramática a la forma normal de Chomsky.
+
+
+\begin{center}
+\includegraphics[scale=0.55]{pila_2.png}
+\end{center}
+
+El lenguaje generado a partir del autómata es el siguiente:
+
+$$ S \rightarrow (q_0, Z, q_0) | (q_0, Z, q_1)  $$
+
+De la transición 1/Z/SZ obtenemos las siguientes producciones:
+
+$$ (q_0, Z, q_0) \rightarrow 1(q_0, S, q_0)(q_0, Z, q_0) | 1(q_0, S, q_1)(q_1, Z, q_0) $$
+$$ (q_0, Z, q_1) \rightarrow 1(q_0, S, q_0)(q_0, Z, q_1) | 1(q_0, S, q_1)(q_1, Z, q_1) $$
+
+
+De la transición 1/S/SS obtenemos las siguientes producciones:
+
+$$ (q_0, S, q_0) \rightarrow 1(q_0, S, q_0)(q_0, S, q_0) | 1(q_0, S, q_1)(q_1, S, q_0) $$
+$$ (q_0, S, q_1) \rightarrow 1(q_0, S, q_0)(q_0, S, q_1) | 1(q_0, S, q_1)(q_1, S, q_1) $$
+
+De la transición $\epsilon$/S/S obtenemos la siguiente producción:
+
+$$ (q_0, S, q_1) \rightarrow (q_1, S, q_1) $$
+
+De la transición 0/S/$\epsilon$ obtenemos la siguiente producción:
+
+$$ (q_1, S, q_1) \rightarrow 0$$
+
+De la transición 1/S/$\epsilon$ obtenemos la siguiente producción:
+
+$$ (q_1, S, q_1) \rightarrow 1$$
+
+De la transición $\epsilon$/Z/$\epsilon$ obtenemos la siguiente producción:
+
+$$ (q_1, Z, q_1) \rightarrow \epsilon $$
+
+
+
+Eliminando producciones inútiles nos queda la siguiente gramática:
+
+
+$$ S \rightarrow  (q_0, Z, q_1)  $$
+
+
+$$ (q_0, Z, q_1) \rightarrow  1(q_0, S, q_1)(q_1, Z, q_1)   $$
+
+
+$$ (q_0, S, q_1) \rightarrow 1(q_0, S, q_1)(q_1, S, q_1) | (q_1, S, q_1) $$
+
+
+
+$$ (q_1, S, q_1) \rightarrow 0 | 1 $$
+
+$$ (q_1, Z, q_1) \rightarrow \epsilon $$
+
+
+Renombrando variables quedaría como:
+
+$$ S \rightarrow A  $$
+
+$$ A \rightarrow 1BD $$
+
+$$ B \rightarrow 1BC | C $$
+
+$$ C \rightarrow 0 | 1 $$
+
+$$ D \rightarrow \epsilon $$
+
+\newpage
+
+Que reduciendo las producciones obtenemos la siguiente gramática:
+
+$$ S \rightarrow A  $$
+
+$$ A \rightarrow 1B $$
+
+$$ B \rightarrow 1BC | C $$
+
+$$ C \rightarrow 0 | 1 $$
+
+Que eliminando el salto innecesario de S a A nos queda:
+
+$$ S \rightarrow 1B  $$
+
+$$ B \rightarrow 1BC | C $$
+
+$$ C \rightarrow 0 | 1 $$
+
+
+Y vemos como esta gramática nos sigue generando el lenguaje: 
+
+$$ L = \{1^nw \in \{0,1\}^* \text{ tal que } |w|=n, n > 0 \}  $$
+
+Ya que la producción S nos asegura tener un 1 como mínimo (cumplimos la condición de $n > 0$), pasando a B podemos generar una C, que nos generará un 0 o un 1 (para cerrar la cadena en caso de que $n = 1$) o seguir generando 1BC, lo que haría que tengamos un 1 más y una C, que como sabemos que finalmente la B se convertirá en una C, el número de 1's y de C's serán el mismo, creando palabras del lenguaje.
+
+Ejemplo de producción:
+
+$$ S \rightarrow 1B \rightarrow 11BC \rightarrow 111BCC \rightarrow 111CCC \rightarrow 1110CC \rightarrow 11101C \rightarrow 111011 $$
+
+
+\newpage
+
+Por último, pasar esta gramática a forma normal de Chomsky es muy sencillo, ya que la única producción que nos da problemas es $B \rightarrow 1BC$, que creando una nueva producción que genere unos, y creando una nueva variable que genere $BC$ ya tendríamos esta gramática en forma normal de Chomsky.
+
+
+$$ S \rightarrow DB  $$
+
+$$ B \rightarrow DE | C $$
+
+$$ C \rightarrow 0 | 1 $$
+
+$$ D \rightarrow  1 $$
+
+$$ E \rightarrow  BC $$
+
+
+\end{document}
+
