@@ -1,4 +1,4 @@
-# Prácticas de la asignatura Modelos de Computación
+# Prácticas de la asignatura Modelos de Computación de la Universidad de Granada, curso 2019/20
 
 En este repo subiré los archivos para las prácticas de MC, subiré los .tex e imagenes necesarias para compilarlo, y en la sección de releases subiré los PDFs
 
